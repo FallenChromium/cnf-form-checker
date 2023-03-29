@@ -1,0 +1,22 @@
+{
+  "name": "propositional-lang-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "prestart": "npm run build"
+  },
+  "author": "FallenChromium",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/node": "^18.14.2",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/treeify": "^1.0.0",
+    "treeify": "^1.1.0"
+  }
+}
