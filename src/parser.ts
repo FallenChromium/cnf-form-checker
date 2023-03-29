@@ -1,4 +1,4 @@
-import { Token, TOKENS } from "./tokenizer";
+import { Token, TOKENS, tokenize } from "./tokenizer";
 
 // AST Node types
 type Identifier = {
@@ -30,10 +30,12 @@ export type ASTNode = Identifier | Constant | UnaryOperation | BinaryOperation;
 export class Parser {
     private tokens: Token[];
     private position: number;
+    private formula: string;
 
-    constructor(tokens: Token[]) {
-        this.tokens = tokens;
+    constructor(formula: string) {
+        this.tokens = [];
         this.position = 0;
+        this.formula = formula
     }
 
     private match_IDTF(): Identifier | null {
@@ -111,12 +113,13 @@ export class Parser {
         return (
             this.match_CONST() ||
             this.match_IDTF() ||
-            this.match_unary_operation() ||
-            this.match_binary_operation()
+            this.match_unary_formula() ||
+            this.match_binary_formula()
         );
     }
 
-    match(): ASTNode | null {
+    parse(): ASTNode | null {
+        this.tokens = tokenize(this.formula);
         if (this.tokens.length === 0) {
             return null;
         }
@@ -129,7 +132,7 @@ export class Parser {
         }
     }
 
-    private match_unary_operation(): UnaryOperation | null {
+    private match_unary_formula(): UnaryOperation | null {
         const startPos = this.position;
 
         if (this.match_LPARENTHESIS() && this.match_NEG()) {
@@ -144,7 +147,7 @@ export class Parser {
         return null;
     }
 
-    private match_binary_operation(): BinaryOperation | null {
+    private match_binary_formula(): BinaryOperation | null {
         const startPos = this.position;
 
         if (this.match_LPARENTHESIS()) {

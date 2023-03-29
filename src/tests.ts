@@ -27,9 +27,8 @@ export function test_parsing(testCase: TestCase) {
     let error = false;
     let ast = null;
     try {
-        let token_stream = tokenize(testCase.formula)
-        let parser = new Parser(token_stream);
-        ast = parser.match();
+        let parser = new Parser(testCase.formula);
+        ast = parser.parse();
     }
     catch (e) {
         error = true;
@@ -104,9 +103,8 @@ export function TestCNF(testCase: TestCase): boolean {
     let result = null;
     let ast = null;
 
-    let token_stream = tokenize(testCase.formula)
-    let parser = new Parser(token_stream);
-    ast = parser.match();
+    let parser = new Parser(testCase.formula);
+    ast = parser.parse();
     result = isCNF(ast!);
 
     if (result === testCase.expected) {
