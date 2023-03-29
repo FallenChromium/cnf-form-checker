@@ -16,7 +16,5 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@types/treeify": "^1.0.0",
-    "treeify": "^1.1.0"
   }
 }
