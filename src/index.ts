@@ -1,17 +1,23 @@
-import { test_parsing, parsing_tests, CNF_tests, TestCNF } from './tests'
+import * as fs from 'fs';
+import * as readline from 'readline';
+import { Parser } from './parser';
+import { isCNF } from './cnf_checker'
 
-let test_number = 0
-console.log("Parsing tests")
-for (const testcase of parsing_tests) {
-    console.log("Test #" + test_number)
-    test_parsing(testcase);
-    test_number++;
-}
-
-test_number = 0
-console.log("Analyzer tests")
-for (const testcase of CNF_tests) {
-    console.log("Test #" + test_number)
-    TestCNF(testcase);
-    test_number++;
-}
+(async function processLineByLine(file_path: string) {
+    try {
+      const rl = readline.createInterface({
+        input: fs.createReadStream(file_path),
+        crlfDelay: Infinity
+      });
+  
+      rl.on('line', (line) => {
+        console.log(`Formula from file: ${line}`);
+        const parser = new Parser(line);
+        const ast = parser.parse();
+        const is_cnf = isCNF(ast);
+        console.log(`Formula ${is_cnf ? 'is' : 'is NOT'} in CNF`);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  })(process.argv[2]);

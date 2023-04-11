@@ -68,6 +68,11 @@ export const CNF_tests: TestCase[] = [
         description: "Simple CNF",
     },
     {
+        formula: "A",
+        expected: true,
+        description: "Very simple CNF",
+    },
+    {
         formula: "((A\\/B)/\\((B\\/C)/\\(A\\/C)))",
         expected: true,
         description: "Right-nested CNF",

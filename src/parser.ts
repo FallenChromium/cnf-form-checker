@@ -43,7 +43,7 @@ export class Parser {
 
         if (token.type === TOKENS.IDTF) {
             this.position++;
-            return { type: 'Identifier', value: token.value };
+            return { type: 'Identifier', value: token.value } as Identifier;
         }
 
         return null;
@@ -54,7 +54,7 @@ export class Parser {
 
         if (token.type === TOKENS.CONST) {
             this.position++;
-            return { type: 'Constant', value: token.value === '1' };
+            return { type: 'Constant', value: token.value === '1' } as Constant;
         }
 
         return null;
@@ -139,7 +139,7 @@ export class Parser {
             const child = this.match_formula();
 
             if (child && this.match_RPARENTHESIS()) {
-                return { type: 'UnaryOperation', operator: TOKENS.NEG, child };
+                return { type: 'UnaryOperation', operator: TOKENS.NEG, child: child };
             }
         }
 
@@ -160,7 +160,7 @@ export class Parser {
                     const right = this.match_formula();
 
                     if (right && this.match_RPARENTHESIS()) {
-                        return { type: 'BinaryOperation', operator, left, right };
+                        return { type: 'BinaryOperation', operator: operator, left: left, right: right };
                     }
                 }
             }

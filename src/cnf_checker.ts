@@ -5,7 +5,7 @@ function isLiteral(node: ASTNode): boolean {
     if (node.type === 'Identifier') {
         return true;
     }
-
+    // only identifiers or their negations are allowed
     if (node.type === 'UnaryOperation' && node.operator === TOKENS.NEG && node.child.type === 'Identifier') {
         return true;
     }
@@ -33,7 +33,11 @@ function isClause(node: ASTNode): boolean {
     return false;
 }
 
-export function isCNF(node: ASTNode): boolean {
+export function isCNF(node: ASTNode | null): boolean {
+    if (node == null) {
+        return false;
+    }
+    
     if (isClause(node)) {
         return true;
     }

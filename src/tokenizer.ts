@@ -67,7 +67,8 @@ export function tokenize(str: string): Token[] {
             case CONSTS[0]:  tokens.push({ type: TOKENS.CONST, value: '0'}); break;
             case CONSTS[1]: tokens.push({ type: TOKENS.CONST, value: '1'}); break;
             default: {
-                if (IDTFS.indexOf(str[i]) > -1 || CONSTS.indexOf(str[i]) > -1) {
+                // check if it's a valid identifier
+                if (IDTFS.indexOf(str[i]) > -1) {
                     tokens.push({ type: TOKENS.IDTF, value: str[i] });
                 }
                 else {
